@@ -1,4 +1,4 @@
-import { Clock, CheckCircle, XCircle, Palmtree } from "lucide-react";
+import { Clock, CheckCircle, XCircle } from "lucide-react";
 import { DayData } from "./types";
 
 interface TimesheetStatsProps {
@@ -6,30 +6,28 @@ interface TimesheetStatsProps {
 }
 
 const TimesheetStats = ({ days }: TimesheetStatsProps) => {
-  const presentDays = days.filter(d => d.status === 'present').length;
-  const absentDays = days.filter(d => d.status === 'absent').length;
-  const leaveDays = days.filter(d => d.status === 'leave').length;
-  const totalHours = days.reduce((acc, d) => acc + (d.hours || 0), 0);
+  // Calculate statistics
+  const workedDays = days.filter(d => d.status === "worked").length;
 
+  const notWorkedDays = days.filter(d => d.status === "not-worked").length;
+
+  const totalHours = days
+    .filter(d => d.status === "worked")
+    .reduce((acc, d) => acc + (d.hours || 0), 0);
+
+  // Stats array for rendering
   const stats = [
     {
       icon: CheckCircle,
-      label: "Present",
-      value: presentDays,
-      color: "text-status-present",
-      bgColor: "bg-status-present-light",
+      label: "Worked Days",
+      value: workedDays,
+      color: "text-status-working",
+      bgColor: "bg-status-working-light",
     },
     {
       icon: XCircle,
-      label: "Absent",
-      value: absentDays,
-      color: "text-status-absent",
-      bgColor: "bg-status-absent-light",
-    },
-    {
-      icon: Palmtree,
-      label: "Leave",
-      value: leaveDays,
+      label: "Not Worked",
+      value: notWorkedDays,
       color: "text-status-leave",
       bgColor: "bg-status-leave-light",
     },
@@ -43,7 +41,7 @@ const TimesheetStats = ({ days }: TimesheetStatsProps) => {
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
       {stats.map((stat) => (
         <div
           key={stat.label}

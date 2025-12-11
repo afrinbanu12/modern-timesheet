@@ -22,11 +22,15 @@ const TimesheetGrid = ({ days, onDayClick }: TimesheetGridProps) => {
           </div>
         ))}
       </div>
-      
+
       {/* Days grid */}
       <div className="grid grid-cols-7 gap-2 sm:gap-3">
         {days.map((day, index) => (
-          <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 15}ms` }}>
+          <div
+            key={index}
+            className="animate-fade-in"
+            style={{ animationDelay: `${index * 15}ms` }}
+          >
             <DayCard day={day} onClick={onDayClick} />
           </div>
         ))}

@@ -1,4 +1,8 @@
 import { cn } from "@/lib/utils";
+import TimesheetHeader from "./TimesheetHeader";
+import TimesheetGrid from "./TimesheetGrid";
+import TimesheetStats from "./TimesheetStats";
+import StatusLegend from "./StatusLegend";
 
 interface LegendItemProps {
   color: string;
@@ -15,9 +19,8 @@ const LegendItem = ({ color, label }: LegendItemProps) => (
 const StatusLegend = () => {
   return (
     <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-      <LegendItem color="bg-status-present" label="Present" />
-      <LegendItem color="bg-status-absent" label="Absent" />
-      <LegendItem color="bg-status-leave" label="Leave" />
+      <LegendItem color="bg-status-working" label="Worked" />
+      <LegendItem color="bg-status-leave" label="Not Worked" />
       <LegendItem color="bg-status-weekend" label="Weekend" />
     </div>
   );
