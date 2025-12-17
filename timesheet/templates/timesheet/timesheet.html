@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Monthly Timesheet</title>
+    <link rel="stylesheet" href="{% static 'css/timesheet.css' %}">
+</head>
+
+<body>
+    
+        <header><h2>Monthly Timesheet</h2></header>
+        <!-- <div class="container"></div> -->
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Hours</th>
+                        <th>Task</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in entries_list %}
+                    {% with entry=item.entry %}
+                    <tr>
+                        <td>{{ item.date|date:"d/m/Y" }}</td>
+                        <td>{{ item.date|date:"D" }}</td>
+                        <td>
+                            <input type="number" step="0.25" name="hours_{{ item.date }}" value="{{ entry.hours|default:0 }}">
+                        </td>
+                        <td>
+                            <input type="text" name="task_{{ item.date }}" value="{{ entry.task|default:'' }}">
+                        </td>
+                        <td>
+                            {% comment %} <td>
+                                <select name="status_{{ item.date }}">
+                                    <!-- <option value="Work" {% ifequal entry.status "Work" %}selected{% endifequal %}>Work</option>
+                                    <option value="Leave" {% ifequal entry.status "Leave" %}selected{% endifequal %}>Leave</option>
+                                    <option value="Holiday" {% ifequal entry.status "Holiday" %}selected{% endifequal %}>Holiday</option> -->
+                                    <option value="Work">Work</option>
+                                </select>
+                            </td> {% endcomment %}
+                        </td>
+                    </tr>
+                    {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="actions">
+                <button type="submit" id="s1">Save Timesheet</button>
+                <a href="{% url 'export_csv' %}">
+                    <button type="button" id="s2">Export CSV</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
