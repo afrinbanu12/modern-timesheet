@@ -1,0 +1,22 @@
+<!-- myapp/templates/myapp/product_form.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Products Form</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
+</head>
+
+<head>
+    <title>{% if form.instance.pk %}Update{% else %}Create{% endif %} Product</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Product</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'product_list' %}">Back to List</a>
+</body>
+</html>

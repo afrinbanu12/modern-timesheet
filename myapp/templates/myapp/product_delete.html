@@ -1,0 +1,22 @@
+<!-- myapp/templates/myapp/product_delete.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Products Delete</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
+</head>
+
+<head>
+    <title>Delete Product</title>
+</head>
+<body>
+    <h1>Delete Product</h1>
+    <p>Are you sure you want to delete "{{ product.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+    <a href="{% url 'product_list' %}">Cancel</a>
+</body>
+</html>

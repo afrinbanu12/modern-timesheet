@@ -1,0 +1,32 @@
+<head>
+    <title>Products List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+</head>
+<body>
+    <h1>Products List</h1>
+    <a class="add-product" href="{% url 'product_create' %}">Add Product</a>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>In Stock</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.in_stock|yesno:"Yes,No" }}</td>
+            <td>
+                <a href="{% url 'product_update' product.id %}">Edit</a> |
+                <a href="{% url 'product_delete' product.id %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No products found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
